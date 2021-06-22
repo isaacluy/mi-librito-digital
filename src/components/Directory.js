@@ -39,13 +39,13 @@ const mantras = {
 const Directory = () => {
   return (
     <nav className="h-full overflow-y-auto" aria-label="Directory">
-      {Object.keys(mantras).map((letter) => (
-        <div key={letter} className="relative">
+      {Object.keys(mantras).map(group => (
+        <div key={group} className="relative">
           <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
-            <h3>{letter}</h3>
+            <h3>{group}</h3>
           </div>
           <ul className="relative z-0 divide-y divide-gray-200">
-            {mantras[letter].map((mantra) => (
+            {mantras[group].map((mantra) => (
               <li key={mantra.id} className="bg-white">
                 <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                   <div className="flex-shrink-0">
