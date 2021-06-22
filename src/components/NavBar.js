@@ -1,5 +1,5 @@
 import { Popover } from '@headlessui/react';
-import { SearchIcon } from '@heroicons/react/solid';
+import { ChevronDoubleLeftIcon, SearchIcon } from '@heroicons/react/solid';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -28,13 +28,13 @@ const NavBar = () => {
                     <a href="https://www.iniciadossky.com/">
                       <img
                         className="block h-8 w-auto"
-                        src="https://escuelavaloresdivinos.org/wp-content/uploads/2020/06/EVD-Logo-contactos-maestros-v2.png"
+                        src="https://www.iniciadossky.com/assets/design2/icon-9fd5dfd8774cebef18ffb89ac5ca5553338227555753edb4670f561e6d7b2a38.png"
                         alt="Workflow"
                       />
                     </a>
                   </div>
                 </div>
-                {/* SEARCH FIELD */}
+                {/* BACK BUTTON */}
                 <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-8">
                   <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                     <div className="w-full">
@@ -43,7 +43,10 @@ const NavBar = () => {
                       </label>
                       <div className="relative">
                         <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                          <SearchIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+                          <SearchIcon
+                            className="h-5 w-5 text-yellow-400"
+                            aria-hidden="true"
+                          />
                         </div>
                         <input
                           id="search"
@@ -54,6 +57,18 @@ const NavBar = () => {
                         />
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div className="min-w-0 flex mx-auto py-4 xl:col-span-2 xl:flex-row-reverse xl:mx-0">
+                  <div className="flex items-center">
+                    <button
+                      className="bg-yellow-400 py-2 px-4 rounded-md hover:bg-yellow-500 text-gray-600 text-sm"
+                    >
+                      <ChevronDoubleLeftIcon
+                        aria-hidden="true"
+                        className="h-5 w-5 text-gray-500"
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
