@@ -1,5 +1,6 @@
 import { Popover } from '@headlessui/react';
 import { SearchIcon } from '@heroicons/react/solid';
+import { useRouteMatch } from 'react-router-dom';
 
 import BackButton from './BackButton';
 
@@ -8,8 +9,10 @@ function classNames(...classes) {
 }
 
 const NavBar = () => {
+  const match = useRouteMatch("/");
+
   return (
-    <>
+    <nav>
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
       <Popover
         as="header"
@@ -64,7 +67,7 @@ const NavBar = () => {
                 {/* BACK BUTTON */}
                 <div className="min-w-0 flex mx-auto py-4 xl:col-span-2 xl:flex-row-reverse xl:mx-0">
                   <div className="flex items-center">
-                    <BackButton onClick={() => console.log('Por arriba!')}/>
+                    <BackButton hide={match.isExact} />
                   </div>
                 </div>
               </div>
@@ -72,7 +75,7 @@ const NavBar = () => {
           </>
         )}
       </Popover>
-    </>
+    </nav>
   )
 }
 

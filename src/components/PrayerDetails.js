@@ -44,7 +44,7 @@ const PrayerDetails = () => {
         <p>{prayer.afirmation}</p>
       </div>
       <div className="mx-auto mt-8 w-14">
-        <BackButton onClick={() => console.log('Por abajo!')}/>
+        <BackButton />
       </div>
     </main>
   );
