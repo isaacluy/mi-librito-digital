@@ -45,9 +45,9 @@ const MantraDetails = () => {
         {renderDefinitions()}
       </div>
       {/* TRADUCCIÓN */}
-      <div className="mx-auto mt-8 lg:w-3/4 xl:w-1/2">
-        <h3 className=" text-center text-xl md:text-2xl font-bold">Traducción:</h3>
-        <p className="text-center text-xl md:text-2xl">{`"${mantra.translation}"`}</p>
+      <div className="mx-auto mt-8 lg:w-3/4 xl:w-1/2 text-center text-xl md:text-2xl">
+        <h3 className="font-bold">Traducción:</h3>
+        <p>{`"${mantra.translation}"`}</p>
       </div>
       <div className="mx-auto mt-8 w-14">
         <BackButton onClick={() => console.log('Por abajo!')}/>
