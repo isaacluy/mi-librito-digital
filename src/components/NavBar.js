@@ -1,5 +1,7 @@
 import { Popover } from '@headlessui/react';
-import { ChevronDoubleLeftIcon, SearchIcon } from '@heroicons/react/solid';
+import { SearchIcon } from '@heroicons/react/solid';
+
+import BackButton from './BackButton';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -34,7 +36,7 @@ const NavBar = () => {
                     </a>
                   </div>
                 </div>
-                {/* BACK BUTTON */}
+                {/* SEARCH FIELD */}
                 <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-8">
                   <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                     <div className="w-full">
@@ -59,16 +61,10 @@ const NavBar = () => {
                     </div>
                   </div>
                 </div>
+                {/* BACK BUTTON */}
                 <div className="min-w-0 flex mx-auto py-4 xl:col-span-2 xl:flex-row-reverse xl:mx-0">
                   <div className="flex items-center">
-                    <button
-                      className="bg-yellow-400 py-2 px-4 rounded-md hover:bg-yellow-500 text-gray-600 text-sm"
-                    >
-                      <ChevronDoubleLeftIcon
-                        aria-hidden="true"
-                        className="h-5 w-5 text-gray-500"
-                      />
-                    </button>
+                    <BackButton onClick={() => console.log('Por arriba!')}/>
                   </div>
                 </div>
               </div>
