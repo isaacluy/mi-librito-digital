@@ -1,33 +1,30 @@
-import BackButton from './BackButton';
+import React from "react";
+
+import BackButton from "./BackButton";
 
 const prayer = {
   id: 2,
-  name: 'Amanece y la Luz se expande',
-  by: 'Mataji Shaktiananda',
-  text: 'Amanece y la Luz se expande*siento que mi verdad*está sujeta a lo que soy,*un ser de luz*recuerdo siempre de mi*la manifestación más pura*para hacerla presente hoy*nadie deja en mi rastros de su inconciencia*y me apruebo en todo*lo que soy y digo*comprendo que nadie podrá,*así mismo, desviar lo que soy*Bendigo mi ser*en el camino que hoy*he trazado para seguir.',
+  name: "Amanece y la Luz se expande",
+  by: "Mataji Shaktiananda",
+  text: "Amanece y la Luz se expande*siento que mi verdad*está sujeta a lo que soy,*un ser de luz*recuerdo siempre de mi*la manifestación más pura*para hacerla presente hoy*nadie deja en mi rastros de su inconciencia*y me apruebo en todo*lo que soy y digo*comprendo que nadie podrá,*así mismo, desviar lo que soy*Bendigo mi ser*en el camino que hoy*he trazado para seguir.",
   amen: true,
-  afirmation: 'BENDIGO MI SER',
+  afirmation: "BENDIGO MI SER",
 };
 
 const PrayerDetails = () => {
-
   const renderPrayerText = () => {
-    const frases = prayer.text.split('*');
+    const frases = prayer.text.split("*");
 
-    return frases.map((frase, index) => (<p key={index}>{frase}</p>));
-  }
+    return frases.map((frase, index) => <p key={index}>{frase}</p>);
+  };
 
   const renderAmen = amen => {
     return amen ? (
-      <div
-        className="mt-4 mx-auto w-32"
-      >
-        <p>
-          Que así sea
-        </p>
+      <div className="mt-4 mx-auto w-32">
+        <p>Que así sea</p>
       </div>
     ) : null;
-  }
+  };
 
   return (
     <main className="container mx-auto p-8">
@@ -48,6 +45,6 @@ const PrayerDetails = () => {
       </div>
     </main>
   );
-}
+};
 
 export default PrayerDetails;

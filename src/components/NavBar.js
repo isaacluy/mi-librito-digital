@@ -1,11 +1,12 @@
-import { Popover } from '@headlessui/react';
-import { SearchIcon } from '@heroicons/react/solid';
-import { useRouteMatch } from 'react-router-dom';
+import React from "react";
+import { Popover } from "@headlessui/react";
+import { SearchIcon } from "@heroicons/react/solid";
+import { useRouteMatch } from "react-router-dom";
 
-import BackButton from './BackButton';
+import BackButton from "./BackButton";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 const NavBar = () => {
@@ -18,12 +19,14 @@ const NavBar = () => {
         as="header"
         className={({ open }) =>
           classNames(
-            open ? 'fixed inset-0 z-40 overflow-y-auto' : '',
-            'bg-white shadow-sm lg:static lg:overflow-y-visible'
+            open ? "fixed inset-0 z-40 overflow-y-auto" : "",
+            "bg-white shadow-sm lg:static lg:overflow-y-visible"
           )
         }
       >
-        {({ open }) => (
+        {(
+          { open } // eslint-disable-line no-unused-vars
+        ) => (
           <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
@@ -76,7 +79,7 @@ const NavBar = () => {
         )}
       </Popover>
     </nav>
-  )
-}
+  );
+};
 
 export default NavBar;
