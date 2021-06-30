@@ -1,13 +1,14 @@
 import React from "react";
 import { useParams } from "react-router";
 
-import { useMantra } from "../data/AirtableDB";
+import { useAirtableItem } from "../data/AirtableDB";
+import { MANTRAS_TABLE } from "../utils/constants";
 
 import BackButton from "./BackButton";
 
 const MantraDetails = () => {
   const { id } = useParams();
-  const [isLoading, mantra] = useMantra(id);
+  const [isLoading, mantra] = useAirtableItem(id, MANTRAS_TABLE);
 
   const renderDefinitions = () => {
     const words = mantra.word ? mantra.word : [];

@@ -1,16 +1,14 @@
 import React from "react";
 import Airtable from "airtable";
 
+import { MANTRAS_TABLE, PRAYERS_TABLE } from "../utils/constants";
 import { formatGroups, getGroupsObject } from "../utils/groupsUtils";
-import { findMantraRecordBySlug, getRecordFields } from "../utils/mantrasUtils";
+import { findRecordBySlug, getRecordFields } from "../utils/itemsUtils";
 
-// eslint-disable-next-line no-undef
-const API_KEY = process.env.REACT_APP_AIRTABLE_API_KEY;
-// eslint-disable-next-line no-undef
-const BASE_KEY = process.env.REACT_APP_AIRTABLE_BASE_KEY;
+const API_KEY = process.env.REACT_APP_AIRTABLE_API_KEY; // eslint-disable-line no-undef
+const BASE_KEY = process.env.REACT_APP_AIRTABLE_BASE_KEY; // eslint-disable-line no-undef
+const GRID_VIEW = "Grid view";
 const GROUPS_TABLE = "Groups";
-const MANTRAS_TABLE = "Mantras";
-const AIRTABLE_GRID_VIEW = "Grid view";
 
 export const useGroups = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -21,7 +19,7 @@ export const useGroups = () => {
     const base = new Airtable({ apiKey: API_KEY }).base(BASE_KEY);
 
     base(GROUPS_TABLE)
-      .select({ view: AIRTABLE_GRID_VIEW })
+      .select({ view: GRID_VIEW })
       .eachPage(
         (records, fetchNextPage) => {
           const formattedGroups = formatGroups(records);
@@ -45,22 +43,23 @@ export const useGroups = () => {
   return [isLoading, groups];
 };
 
-export const useMantra = mantraSlug => {
+export const useAirtableItem = (mantraSlug, table) => {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [mantra, setMantra] = React.useState(null);
+  const [item, setItem] = React.useState(null);
+  const verifiedTable = table === PRAYERS_TABLE ? PRAYERS_TABLE : MANTRAS_TABLE;
 
   React.useEffect(() => {
     setIsLoading(true);
     const base = new Airtable({ apiKey: API_KEY }).base(BASE_KEY);
 
-    base(MANTRAS_TABLE)
-      .select({ view: AIRTABLE_GRID_VIEW })
+    base(verifiedTable)
+      .select({ view: GRID_VIEW })
       .eachPage(
         (records, fetchNextPage) => {
-          const mantraRecord = findMantraRecordBySlug(records, mantraSlug);
-          const mantra = getRecordFields(mantraRecord);
+          const itemRecord = findRecordBySlug(records, mantraSlug);
+          const cleanItem = getRecordFields(itemRecord);
 
-          setMantra(mantra);
+          setItem(cleanItem);
 
           fetchNextPage();
           setIsLoading(false);
@@ -75,5 +74,5 @@ export const useMantra = mantraSlug => {
       );
   }, [mantraSlug]);
 
-  return [isLoading, mantra];
+  return [isLoading, item];
 };

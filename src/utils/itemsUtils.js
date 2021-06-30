@@ -1,4 +1,4 @@
-export const findMantraRecordBySlug = (records, slug) => {
+export const findRecordBySlug = (records, slug) => {
   return records.filter(record => record.fields.urlSlug === slug);
 };
 

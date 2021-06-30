@@ -1,17 +1,15 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+
+import { useAirtableItem } from "../data/AirtableDB";
+import { PRAYERS_TABLE } from "../utils/constants";
 
 import BackButton from "./BackButton";
 
-const prayer = {
-  id: 2,
-  name: "Amanece y la Luz se expande",
-  by: "Mataji Shaktiananda",
-  text: "Amanece y la Luz se expande*siento que mi verdad*está sujeta a lo que soy,*un ser de luz*recuerdo siempre de mi*la manifestación más pura*para hacerla presente hoy*nadie deja en mi rastros de su inconciencia*y me apruebo en todo*lo que soy y digo*comprendo que nadie podrá,*así mismo, desviar lo que soy*Bendigo mi ser*en el camino que hoy*he trazado para seguir.",
-  amen: true,
-  afirmation: "BENDIGO MI SER",
-};
-
 const PrayerDetails = () => {
+  const { id } = useParams();
+  const [isLoading, prayer] = useAirtableItem(id, PRAYERS_TABLE);
+
   const renderPrayerText = () => {
     const frases = prayer.text.split("*");
 
@@ -26,7 +24,7 @@ const PrayerDetails = () => {
     ) : null;
   };
 
-  return (
+  return !isLoading && prayer ? (
     <main className="container mx-auto p-8">
       <h1 className=" text-center text-3xl md:text-4xl">{prayer.name}</h1>
       <h2 className=" text-center text-2xl md:text-3xl">{prayer.by}</h2>
@@ -44,7 +42,7 @@ const PrayerDetails = () => {
         <BackButton />
       </div>
     </main>
-  );
+  ) : null;
 };
 
 export default PrayerDetails;
