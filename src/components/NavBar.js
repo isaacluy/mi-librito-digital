@@ -4,6 +4,7 @@ import { SearchIcon } from "@heroicons/react/solid";
 import { useRouteMatch } from "react-router-dom";
 
 import BackButton from "./BackButton";
+import { language } from "../utils/constants";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -47,7 +48,7 @@ const NavBar = () => {
                   <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                     <div className="w-full">
                       <label htmlFor="search" className="sr-only">
-                        Buscar Oración o Mantra
+                        {language.searchFieldLabel}
                       </label>
                       <div className="relative">
                         <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -60,7 +61,7 @@ const NavBar = () => {
                           id="search"
                           name="search"
                           className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
-                          placeholder="Buscar Oración o Mantra"
+                          placeholder={language.searchFieldLabel}
                           type="search"
                         />
                       </div>

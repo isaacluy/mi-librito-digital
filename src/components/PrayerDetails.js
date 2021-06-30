@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { useAirtableItem } from "../data/AirtableDB";
-import { PRAYERS_TABLE } from "../utils/constants";
+import { PRAYERS_TABLE, language } from "../utils/constants";
 
 import BackButton from "./BackButton";
 
@@ -19,7 +19,7 @@ const PrayerDetails = () => {
   const renderAmen = amen => {
     return amen ? (
       <div className="mt-4 mx-auto w-32">
-        <p>Que así sea</p>
+        <p>{language.amen}</p>
       </div>
     ) : null;
   };
@@ -35,7 +35,7 @@ const PrayerDetails = () => {
       </div>
       {/* AFIRMACIÓN */}
       <div className="mx-auto mt-8 lg:w-3/4 xl:w-1/2 text-center text-xl md:text-2xl uppercase">
-        <h3 className="font-bold">Afirmación:</h3>
+        <h3 className="font-bold">{`${language.afirmation}:`}</h3>
         <p>{prayer.afirmation}</p>
       </div>
       <div className="mx-auto mt-8 w-14">

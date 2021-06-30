@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router";
 
 import { useAirtableItem } from "../data/AirtableDB";
-import { MANTRAS_TABLE } from "../utils/constants";
+import { MANTRAS_TABLE, language } from "../utils/constants";
 
 import BackButton from "./BackButton";
 
@@ -40,7 +40,7 @@ const MantraDetails = () => {
       </div>
       {/* TRADUCCIÓN */}
       <div className="mx-auto mt-8 lg:w-3/4 xl:w-1/2 text-center text-xl md:text-2xl">
-        <h3 className="font-bold">Traducción:</h3>
+        <h3 className="font-bold">{`${language.translation}:`}</h3>
         <p>{`"${mantra.translation}"`}</p>
       </div>
       <div className="mx-auto mt-8 w-14">
