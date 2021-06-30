@@ -1,25 +1,17 @@
 import React from "react";
+import { useParams } from "react-router";
+
+import { useMantra } from "../data/AirtableDB";
 
 import BackButton from "./BackButton";
 
-const mantra = {
-  id: 2,
-  transliteration: "Om Namaha Shivaya",
-  sanskrit: "ॐ नमः शिवाय",
-  meaning: {
-    om: "Before there was a universe, there was a vibrationless void of pure existence. Out of this void came the vibration which started the universe, which is known as Om.",
-    namaha: "This literally translates to bow.",
-    shivaya:
-      "This, of course, Shiva; but more than that, it means the inner self.",
-  },
-  translation:
-    "Reverencias al Señor Shiva Reverencias al Señor Shiva Reverencias al Señor Shiva Reverencias al Señor Shiva Reverencias al Señor Shiva",
-};
-
 const MantraDetails = () => {
+  const { id } = useParams();
+  const [isLoading, mantra] = useMantra(id);
+
   const renderDefinitions = () => {
-    const words = Object.keys(mantra.meaning);
-    const definitions = Object.values(mantra.meaning);
+    const words = mantra.word ? mantra.word : [];
+    const definitions = mantra.meaning ? mantra.meaning : [];
 
     return words.map((word, index) =>
       renderDefinition(word, definitions[index], index)
@@ -35,7 +27,7 @@ const MantraDetails = () => {
     );
   };
 
-  return (
+  return !isLoading && mantra ? (
     <main className="container mx-auto p-8">
       <h1 className=" text-center text-3xl md:text-4xl">
         {mantra.transliteration}
@@ -54,7 +46,7 @@ const MantraDetails = () => {
         <BackButton />
       </div>
     </main>
-  );
+  ) : null;
 };
 
 export default MantraDetails;
