@@ -25,6 +25,7 @@ export const formatGroups = records => {
       title: mantrasTransliteration,
       type: MANTRA,
     });
+    // console.log("mantras", mantras);
     const prayers = formatItems({
       imageUrl,
       slug: prayersURLSlug,
@@ -32,6 +33,7 @@ export const formatGroups = records => {
       title: prayersName,
       type: PRAYER,
     });
+    // console.log("prayers", prayers);
     // console.groupEnd();
 
     return { name, items: [...mantras, ...prayers] };
@@ -54,14 +56,14 @@ export const getGroupsObject = formattedGroups => {
 };
 
 const formatItems = ({ subtitle, imageUrl, title, slug, type }) => {
-  if (!subtitle || !title || !slug) return [];
+  if (!title || !slug) return [];
 
-  const items = subtitle.map((subtitle, index) => {
+  const items = title.map((title, index) => {
     return {
       id: slug[index],
       imageUrl,
-      subtitle,
-      title: title[index],
+      subtitle: subtitle && subtitle[index] ? subtitle[index] : "",
+      title,
       type,
     };
   });
