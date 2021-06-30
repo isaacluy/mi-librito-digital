@@ -3,27 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useGroups } from "../data/AirtableDB";
 
-import { MANTRA, PRAYER } from "../utils/constants";
-
-const getItemURL = (id, type) => {
-  let url = "/404";
-
-  if (!id) return url;
-
-  switch (type) {
-    case MANTRA:
-      url = `/mantra/${id}`;
-      break;
-    case PRAYER:
-      url = `/prayer/${id}`;
-      break;
-    default:
-      console.warn(`Invalid item type: ${type}`);
-      break;
-  }
-
-  return url;
-};
+import { getItemURL } from "../utils/itemsUtils";
 
 const Directory = () => {
   const [isLoading, groups] = useGroups();
