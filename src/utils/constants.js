@@ -9,6 +9,8 @@ export const PRAYERS_TABLE = "Prayers";
 export const language = {
   afirmation: "Afirmación",
   amen: "Que así sea",
+  missingMantraTransliteration: "Falta el mantra",
+  missingPrayerName: "Falta el nombre de la oración",
   searchFieldLabel: "Buscar Oración o Mantra",
   translation: "Traducción",
 };
