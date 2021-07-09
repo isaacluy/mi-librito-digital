@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
+import bcrypt from "bcryptjs";
 
 import { useKeys } from "../data/AirtableDB";
 import { language } from "../utils/constants";
@@ -21,7 +22,7 @@ const Login = ({ setIsLoggedIn }) => {
 
   const renderLoginForm = () => {
     return (
-      <form className="mt-8 space-y-6" action="#" onSubmit={submitHandler}>
+      <form className="mt-8 space-y-6" onSubmit={submitHandler}>
         {renderInput()}
         {renderError()}
         {renderLogInButton()}
@@ -31,11 +32,21 @@ const Login = ({ setIsLoggedIn }) => {
 
   const submitHandler = e => {
     e.preventDefault();
-    if (keys.some(k => k === inputText.current.value)) {
+
+    if (isCleanAndValidPassword(inputText.current.value)) {
       setIsLoggedIn(true);
     } else {
       setShowError(true);
     }
+  };
+
+  const isCleanAndValidPassword = userInput => {
+    // TODO: make sure no malicious code is submitted
+    if (!userInput || !keys || userInput.includes("javascript")) {
+      return;
+    }
+
+    return keys.some(key => (key ? bcrypt.compareSync(userInput, key) : false));
   };
 
   const renderInput = () => {
