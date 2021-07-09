@@ -1,19 +1,23 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
-import Directory from "./components/Directory";
-import MantraDetails from "./components/MantraDetails";
-import NavBar from "./components/NavBar";
-import PrayerDetails from "./components/PrayerDetails";
+import MainApp from "./MainApp";
+import Login from "./components/Login";
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
-      <NavBar />
       <Switch>
-        <Route path="/mantra/:id" component={MantraDetails} />
-        <Route path="/prayer/:id" component={PrayerDetails} />
-        <Route path="/" component={Directory} />
+        <Route
+          exact
+          path="/"
+          render={() =>
+            isLoggedIn ? <MainApp /> : <Login setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
+        <Route path="*" render={() => <Redirect to="/" />} />
       </Switch>
     </BrowserRouter>
   );
