@@ -1,9 +1,10 @@
 import React from "react";
 import Airtable from "airtable";
 
-import { MANTRAS_TABLE, PRAYERS_TABLE } from "../utils/constants";
+import { MANTRAS_TABLE, PRAYERS_TABLE, KEYS_TABLE } from "../utils/constants";
 import { formatGroups, getGroupsObject } from "../utils/groupsUtils";
 import { findRecordBySlug, getRecordFields } from "../utils/itemsUtils";
+import { getDbKeys } from "../utils/keysUtils";
 
 const API_KEY = process.env.REACT_APP_AIRTABLE_API_KEY; // eslint-disable-line no-undef
 const BASE_KEY = process.env.REACT_APP_AIRTABLE_BASE_KEY; // eslint-disable-line no-undef
@@ -75,4 +76,38 @@ export const useAirtableItem = (mantraSlug, table) => {
   }, [mantraSlug]);
 
   return [isLoading, item];
+};
+
+export const useKeys = () => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [keys, setKeys] = React.useState(null);
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    const base = new Airtable({ apiKey: API_KEY }).base(BASE_KEY);
+
+    base(KEYS_TABLE)
+      .select({ view: GRID_VIEW })
+      .eachPage(
+        (records, fetchNextPage) => {
+          // console.group("useKeys");
+          const dbKeys = records ? getDbKeys(records) : [];
+          // console.log("dbKeys", dbKeys);
+          // console.groupEnd();
+          setKeys(dbKeys);
+
+          fetchNextPage();
+          setIsLoading(false);
+        },
+        err => {
+          setIsLoading(false);
+          if (err) {
+            console.error(err);
+            return;
+          }
+        }
+      );
+  }, []);
+
+  return [isLoading, keys];
 };
