@@ -10,36 +10,28 @@ const API_KEY = process.env.REACT_APP_AIRTABLE_API_KEY; // eslint-disable-line n
 const BASE_KEY = process.env.REACT_APP_AIRTABLE_BASE_KEY; // eslint-disable-line no-undef
 const GRID_VIEW = "Grid view";
 const GROUPS_TABLE = "Groups";
+const GROUPS_SEARCH_TIMEOUT_DELAY = 500;
 
-export const useGroups = () => {
+export const useGroups = searchTerm => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [groups, setGroups] = React.useState([]);
 
   React.useEffect(() => {
     setIsLoading(true);
-    const base = new Airtable({ apiKey: API_KEY }).base(BASE_KEY);
 
-    base(GROUPS_TABLE)
-      .select({ view: GRID_VIEW })
-      .eachPage(
-        (records, fetchNextPage) => {
-          const formattedGroups = formatGroups(records);
-          const groupsByName = getGroupsObject(formattedGroups);
-
-          setGroups(groupsByName);
-
-          fetchNextPage();
-          setIsLoading(false);
-        },
-        err => {
-          setIsLoading(false);
-          if (err) {
-            console.error(err);
-            return;
-          }
-        }
+    if (!searchTerm && !groups.length) {
+      getGroupsFromAirtable(searchTerm, setIsLoading, setGroups);
+    } else {
+      const timeoutId = setTimeout(
+        () => getGroupsFromAirtable(searchTerm, setIsLoading, setGroups),
+        GROUPS_SEARCH_TIMEOUT_DELAY
       );
-  }, []);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [searchTerm]);
 
   return [isLoading, groups];
 };
@@ -90,10 +82,8 @@ export const useKeys = () => {
       .select({ view: GRID_VIEW })
       .eachPage(
         (records, fetchNextPage) => {
-          // console.group("useKeys");
           const dbKeys = records ? getDbKeys(records) : [];
-          // console.log("dbKeys", dbKeys);
-          // console.groupEnd();
+
           setKeys(dbKeys);
 
           fetchNextPage();
@@ -110,4 +100,29 @@ export const useKeys = () => {
   }, []);
 
   return [isLoading, keys];
+};
+
+const getGroupsFromAirtable = (searchTerm, setIsLoading, setGroups) => {
+  const base = new Airtable({ apiKey: API_KEY }).base(BASE_KEY);
+
+  base(GROUPS_TABLE)
+    .select({ view: GRID_VIEW })
+    .eachPage(
+      (records, fetchNextPage) => {
+        const formattedGroups = formatGroups(records);
+        const groupsByName = getGroupsObject(formattedGroups, searchTerm);
+
+        setGroups(groupsByName);
+
+        fetchNextPage();
+        setIsLoading(false);
+      },
+      err => {
+        setIsLoading(false);
+        if (err) {
+          console.error(err);
+          return;
+        }
+      }
+    );
 };
