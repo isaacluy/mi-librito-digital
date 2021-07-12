@@ -10,7 +10,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const NavBar = () => {
+const NavBar = ({ setSearchTerm }) => {
   const match = useRouteMatch("/");
 
   return (
@@ -40,7 +40,7 @@ const NavBar = () => {
                 {/* SEARCH BAR */}
                 <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-8">
                   <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
-                    <SearchBar />
+                    <SearchBar setSearchTerm={setSearchTerm} />
                   </div>
                 </div>
                 {/* BACK BUTTON */}

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useGroups } from "../data/AirtableDB";
 
 import { getItemURL } from "../utils/itemsUtils";
+import { language } from "../utils/constants";
 
 const renderGroups = groups => {
   const groupNames = Object.keys(groups);
@@ -54,14 +55,18 @@ const renderItemLink = item => {
   );
 };
 
-const Directory = () => {
-  const [isLoading, groups] = useGroups();
+const Directory = ({ searchTerm }) => {
+  const [isLoading, groups] = useGroups(searchTerm);
 
   return !isLoading ? (
     <nav className="h-full overflow-y-auto" aria-label="Directory">
       {renderGroups(groups)}
     </nav>
-  ) : null;
+  ) : (
+    <h1 className="min-h-screen flex items-center justify-center text-center bg-white">
+      {language.searching}
+    </h1>
+  );
 };
 
 export default Directory;

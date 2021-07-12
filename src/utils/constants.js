@@ -17,6 +17,7 @@ export const language = {
   password: "Contraseña",
   passwordError: "Contraseña incorrecta. Por favor, intente de nuevo",
   searchFieldLabel: "Buscar Oración o Mantra",
+  searching: "Buscando...",
   siteName: "Mi Librito Digital",
   translation: "Traducción",
 };
