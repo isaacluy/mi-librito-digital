@@ -43,16 +43,32 @@ export const formatGroups = records => {
   return groups;
 };
 
-export const getGroupsObject = formattedGroups => {
+export const getGroupsObject = (formattedGroups, searchTerm) => {
   if (!formattedGroups) return {};
 
   const items = {};
 
   formattedGroups.forEach(g => {
-    items[g.name] = g.items;
+    items[g.name] = filterItemsByTerm(g.items, searchTerm);
   });
 
   return items;
+};
+
+const checkTerm = (item, term) => {
+  if (!item || !item.title || !term) return false;
+
+  const regex = new RegExp(term, "i");
+
+  return regex.test(item.title);
+};
+
+const filterItemsByTerm = (items, term) => {
+  if (!items || !term) return items;
+
+  const filteredItems = items.filter(item => checkTerm(item, term));
+
+  return filteredItems;
 };
 
 const formatItems = ({ subtitle, imageUrl, title, slug, type }) => {
