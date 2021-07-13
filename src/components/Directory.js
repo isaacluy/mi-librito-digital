@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { useGroups } from "../data/AirtableDB";
-
 import { getItemURL } from "../utils/itemsUtils";
 import { language } from "../utils/constants";
 

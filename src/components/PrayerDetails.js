@@ -16,8 +16,8 @@ const renderPrayerText = prayer => {
 
 const renderAmen = prayer => {
   return prayer.amen ? (
-    <div className="mt-4 mx-auto w-32">
-      <p>{language.amen}</p>
+    <div className="mt-8 mx-auto w-36">
+      <p className="font-bold">{language.amen}</p>
     </div>
   ) : null;
 };
@@ -36,7 +36,7 @@ const PrayerDetails = () => {
   const [isLoading, prayer] = useAirtableItem(id, PRAYERS_TABLE);
 
   return !isLoading && prayer ? (
-    <main className="container mx-auto p-8">
+    <main className="container mx-auto p-12 md:p-8">
       <Title title={prayer.name} missingMsg={language.missingPrayerName} />
       <Subtitle subtitle={prayer.by} />
       {/* CUERPO DE LA ORACIÓN */}

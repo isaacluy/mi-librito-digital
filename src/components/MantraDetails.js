@@ -40,7 +40,7 @@ const MantraDetails = () => {
   const [isLoading, mantra] = useAirtableItem(id, MANTRAS_TABLE);
 
   return !isLoading && mantra ? (
-    <main className="container mx-auto p-8">
+    <main className="container mx-auto p-12 md:p-8">
       <Title
         title={mantra.transliteration}
         missingMsg={language.missingMantraTransliteration}

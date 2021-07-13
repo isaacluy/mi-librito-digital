@@ -10,7 +10,7 @@ const API_KEY = process.env.REACT_APP_AIRTABLE_API_KEY; // eslint-disable-line n
 const BASE_KEY = process.env.REACT_APP_AIRTABLE_BASE_KEY; // eslint-disable-line no-undef
 const GRID_VIEW = "Grid view";
 const GROUPS_TABLE = "Groups";
-const GROUPS_SEARCH_TIMEOUT_DELAY = 500;
+const GROUPS_SEARCH_TIMEOUT_DELAY = 800;
 
 export const useGroups = searchTerm => {
   const [isLoading, setIsLoading] = React.useState(false);
