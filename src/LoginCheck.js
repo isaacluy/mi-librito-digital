@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import App from "./App";
 import Login from "./components/Login";
+import NoMatch from "./components/NoMatch";
 
 const LoginCheck = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -10,6 +11,7 @@ const LoginCheck = () => {
   return (
     <BrowserRouter>
       <Switch>
+        <Route exact path="/404" component={NoMatch} />
         <Route
           exact
           path="*"

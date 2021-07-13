@@ -14,6 +14,8 @@ export const language = {
   logIn: "Entrar",
   missingMantraTransliteration: "Falta el mantra",
   missingPrayerName: "Falta el nombre de la oración",
+  noMatch: "Error 404: Página no encontrada",
+  noMatchLink: "Volver a la Página Principal",
   password: "Contraseña",
   passwordError: "Contraseña incorrecta. Por favor, intente de nuevo",
   searchFieldLabel: "Buscar Oración o Mantra",
