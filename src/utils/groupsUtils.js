@@ -16,6 +16,7 @@ export const formatGroups = records => {
       prayersName,
       prayersBy,
       prayersURLSlug,
+      text,
     } = record.fields;
     const imageUrl = getImageURL(image);
     const mantras = formatItems({
@@ -32,6 +33,7 @@ export const formatGroups = records => {
       subtitle: prayersBy,
       title: prayersName,
       type: PRAYER,
+      text,
     });
     // console.log("prayers", prayers);
     // console.groupEnd();
@@ -60,7 +62,7 @@ const checkTerm = (item, term) => {
 
   const regex = new RegExp(term, "i");
 
-  return regex.test(item.title);
+  return regex.test(item.title) || regex.test(item.text);
 };
 
 const filterItemsByTerm = (items, term) => {
@@ -71,7 +73,7 @@ const filterItemsByTerm = (items, term) => {
   return filteredItems;
 };
 
-const formatItems = ({ subtitle, imageUrl, title, slug, type }) => {
+const formatItems = ({ subtitle, imageUrl, title, slug, type, text }) => {
   if (!title || !slug) return [];
 
   const items = title.map((title, index) => {
@@ -81,6 +83,7 @@ const formatItems = ({ subtitle, imageUrl, title, slug, type }) => {
       subtitle: subtitle && subtitle[index] ? subtitle[index] : "",
       title,
       type,
+      text: text && text[index] ? text[index] : undefined,
     };
   });
 
