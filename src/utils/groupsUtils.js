@@ -3,46 +3,7 @@ import { MANTRA, PRAYER } from "./constants";
 export const formatGroups = records => {
   if (!records || records.length <= 0) return [];
 
-  const groups = records.map(record => {
-    // console.group("RECORD", record.get("name"));
-    // console.log("Retrieved record >", record);
-
-    const {
-      name,
-      image,
-      mantrasSanskrit,
-      mantrasTransliteration,
-      mantrasURLSlug,
-      prayersName,
-      prayersBy,
-      prayersURLSlug,
-      text,
-    } = record.fields;
-    const imageUrl = getImageURL(image);
-    const mantras = formatItems({
-      imageUrl,
-      slug: mantrasURLSlug,
-      subtitle: mantrasSanskrit,
-      title: mantrasTransliteration,
-      type: MANTRA,
-    });
-    // console.log("mantras", mantras);
-    const prayers = formatItems({
-      imageUrl,
-      slug: prayersURLSlug,
-      subtitle: prayersBy,
-      title: prayersName,
-      type: PRAYER,
-      text,
-    });
-    // console.log("prayers", prayers);
-    // console.groupEnd();
-
-    return { name, items: [...mantras, ...prayers] };
-    // return null;
-  });
-
-  return groups;
+  return records.map(record => getItemByGroupName(record));
 };
 
 export const getGroupsObject = (formattedGroups, searchTerm) => {
@@ -90,8 +51,64 @@ const formatItems = ({ subtitle, imageUrl, title, slug, type, text }) => {
   return items;
 };
 
-const getImageURL = imagesArray => {
+const getGroupImageURL = imagesArray => {
   return imagesArray && imagesArray[0] && imagesArray[0].url
     ? imagesArray[0].url
     : "";
+};
+
+const getItemByGroupName = record => {
+  // console.group("RECORD", record.get("name"));
+  // console.log("Retrieved record >", record);
+
+  const {
+    name,
+    image,
+    mantrasSanskrit,
+    mantrasTransliteration,
+    mantrasURLSlug,
+    prayersName,
+    prayersBy,
+    prayersURLSlug,
+    text,
+  } = record.fields;
+
+  const imageUrl = getGroupImageURL(image);
+
+  const mantras = formatItems({
+    imageUrl,
+    slug: mantrasURLSlug,
+    subtitle: mantrasSanskrit,
+    title: mantrasTransliteration,
+    type: MANTRA,
+  });
+  // console.log("mantras", mantras);
+
+  const prayers = formatItems({
+    imageUrl,
+    slug: prayersURLSlug,
+    subtitle: prayersBy,
+    title: prayersName,
+    type: PRAYER,
+    text,
+  });
+  // console.log("prayers", prayers);
+
+  const items = [...mantras, ...prayers].sort(sortByItemTitle);
+  // console.log("items", items);
+  // console.groupEnd();
+
+  return { name, items };
+};
+
+const sortByItemTitle = ({ title: a }, { title: b }) => {
+  var titleA = a.toUpperCase();
+  var titleB = b.toUpperCase();
+  if (titleA < titleB) {
+    return -1;
+  }
+  if (titleA > titleB) {
+    return 1;
+  }
+  return 0;
 };
