@@ -6,7 +6,13 @@ This proejct is currently hosted in [Vercel](https://vercel.com/) and you can ac
 
 ### Screenshots
 
-_Coming soon!_
+**Directory**
+![mi-librito-digital](https://user-images.githubusercontent.com/394787/130254857-4b8950d6-d766-4105-a3e2-001c484d9745.gif)
+
+**Search**
+![mi-librito-digital-search](https://user-images.githubusercontent.com/394787/130254881-f4688594-7049-4af8-9583-fd49e00418da.gif)
+
+
 
 ## Getting Started
 
