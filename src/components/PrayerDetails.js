@@ -21,7 +21,7 @@ const renderAfirmation = prayer => {
   return prayer.afirmation ? (
     <>
       <h3 className="font-bold">{`${language.afirmation}:`}</h3>
-      <p>{prayer.afirmation}</p>
+      <div>{splitAndRenderByDivider(prayer.afirmation)}</div>
     </>
   ) : null;
 };
