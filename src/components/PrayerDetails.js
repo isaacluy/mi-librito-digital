@@ -3,16 +3,11 @@ import { useParams } from "react-router-dom";
 
 import { useAirtableItem } from "../data/AirtableDB";
 import { PRAYERS_TABLE, language } from "../utils/constants";
+import { splitAndRenderByDivider } from "../utils/textFormatUtils";
 
 import BackButton from "./BackButton";
 import Subtitle from "./Subtitle";
 import Title from "./Title";
-
-const renderPrayerText = prayer => {
-  const frases = prayer.text ? prayer.text.split("*") : [];
-
-  return frases.map((frase, index) => <p key={index}>{frase}</p>);
-};
 
 const renderAmen = prayer => {
   return prayer.amen ? (
@@ -26,7 +21,7 @@ const renderAfirmation = prayer => {
   return prayer.afirmation ? (
     <>
       <h3 className="font-bold">{`${language.afirmation}:`}</h3>
-      <p>{prayer.afirmation}</p>
+      <div>{splitAndRenderByDivider(prayer.afirmation)}</div>
     </>
   ) : null;
 };
@@ -41,7 +36,7 @@ const PrayerDetails = () => {
       <Subtitle subtitle={prayer.by} />
       {/* CUERPO DE LA ORACIÓN */}
       <div className="mx-auto mt-8 text-center text-xl md:text-2xl lg:w-3/4 xl:w-1/2">
-        {renderPrayerText(prayer)}
+        {splitAndRenderByDivider(prayer.text)}
         {renderAmen(prayer)}
       </div>
       {/* AFIRMACIÓN */}
