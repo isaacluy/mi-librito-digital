@@ -57,6 +57,12 @@ const getGroupImageURL = imagesArray => {
     : "";
 };
 
+/* 
+  TODO: This is where I should start lookin in the future to implement
+  the mantra name in the front end
+
+  https://github.com/isaacluy/mi-librito-digital/issues/4
+*/
 const getItemByGroupName = record => {
   // console.group("RECORD", record.get("name"));
   // console.log("Retrieved record >", record);
