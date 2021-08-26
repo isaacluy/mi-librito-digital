@@ -12,7 +12,7 @@ export const getGroupsObject = (formattedGroups, searchTerm) => {
   const items = {};
 
   formattedGroups.forEach(g => {
-    items[g.name] = filterItemsByTerm(g.items, searchTerm);
+    items[g.groupName] = filterItemsByTerm(g.items, searchTerm);
   });
 
   return items;
@@ -34,7 +34,15 @@ const filterItemsByTerm = (items, term) => {
   return filteredItems;
 };
 
-const formatItems = ({ subtitle, imageUrl, title, slug, type, text }) => {
+const formatItems = ({
+  imageUrl,
+  slug,
+  subtitle,
+  text,
+  title,
+  transliteration,
+  type,
+}) => {
   if (!title || !slug) return [];
 
   const items = title.map((title, index) => {
@@ -42,9 +50,13 @@ const formatItems = ({ subtitle, imageUrl, title, slug, type, text }) => {
       id: slug[index],
       imageUrl,
       subtitle: subtitle && subtitle[index] ? subtitle[index] : "",
-      title,
-      type,
       text: text && text[index] ? text[index] : undefined,
+      title,
+      transliteration:
+        transliteration && transliteration[index]
+          ? transliteration[index]
+          : undefined,
+      type,
     };
   });
 
@@ -58,17 +70,18 @@ const getGroupImageURL = imagesArray => {
 };
 
 const getItemByGroupName = record => {
-  // console.group("RECORD", record.get("name"));
+  // console.group("RECORD", record.get("groupName"));
   // console.log("Retrieved record >", record);
 
   const {
-    name,
     image,
+    mantrasName,
     mantrasSanskrit,
     mantrasTransliteration,
     mantrasURLSlug,
-    prayersName,
+    groupName,
     prayersBy,
+    prayersName,
     prayersURLSlug,
     text,
   } = record.fields;
@@ -79,7 +92,8 @@ const getItemByGroupName = record => {
     imageUrl,
     slug: mantrasURLSlug,
     subtitle: mantrasSanskrit,
-    title: mantrasTransliteration,
+    title: mantrasName ? mantrasName : mantrasTransliteration,
+    transliteration: mantrasTransliteration,
     type: MANTRA,
   });
   // console.log("mantras", mantras);
@@ -98,7 +112,7 @@ const getItemByGroupName = record => {
   // console.log("items", items);
   // console.groupEnd();
 
-  return { name, items };
+  return { groupName, items };
 };
 
 const sortByItemTitle = ({ title: a }, { title: b }) => {

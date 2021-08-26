@@ -4,6 +4,25 @@ import { useParams } from "react-router";
 import { useAirtableItem } from "../data/AirtableDB";
 import { MANTRAS_TABLE, language } from "../utils/constants";
 
+const renderHeader = mantra => {
+  const title = mantra.name ? mantra.name : mantra.transliteration;
+
+  return (
+    <>
+      <Title title={title} missingMsg={language.missingMantraTitle} />
+      <Subtitle subtitle={mantra.sanskrit} />
+    </>
+  );
+};
+
+const renderTransliteration = mantra => {
+  return mantra.name !== undefined ? (
+    <div className="mt-4">
+      <Subtitle subtitle={mantra.transliteration} />
+    </div>
+  ) : null;
+};
+
 import BackButton from "./BackButton";
 import Subtitle from "./Subtitle";
 import Title from "./Title";
@@ -41,11 +60,8 @@ const MantraDetails = () => {
 
   return !isLoading && mantra ? (
     <main className="container mx-auto p-12 md:p-8">
-      <Title
-        title={mantra.transliteration}
-        missingMsg={language.missingMantraTransliteration}
-      />
-      <Subtitle subtitle={mantra.sanskrit} />
+      {renderHeader(mantra)}
+      {renderTransliteration(mantra)}
       {/* SIGNIFICADO POR PALABRAS */}
       <div className="mx-auto mt-8 lg:w-3/4 xl:w-1/2">
         {renderDefinitions(mantra)}
