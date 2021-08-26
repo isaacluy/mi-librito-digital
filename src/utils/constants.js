@@ -12,7 +12,7 @@ export const language = {
   amen: "Que así sea",
   loading: "Loading...",
   logIn: "Entrar",
-  missingMantraTransliteration: "Falta el mantra",
+  missingMantraTitle: "Falta el nombre o la transliteración del mantra",
   missingPrayerName: "Falta el nombre de la oración",
   noMatch: "Error 404: Página no encontrada",
   noMatchLink: "Volver a la Página Principal",
